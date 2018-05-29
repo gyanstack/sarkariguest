@@ -1,0 +1,19 @@
+// @import '~bootstrap/scss/bootstrap-reboot';
+// @import '~bootstrap/scss/bootstrap-grid';
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.app-loading {
+    .logo {
+      width: 300px;
+      height: 50px;
+      
+      // this way asset gets processed by webpack 
+      background: url(./assets/logo.png) center center no-repeat; 
+    }
+  }
+
+  .mat-toolbar.mat-primary {
+    background: #03a9f4;
+    color: #fff;
+}
