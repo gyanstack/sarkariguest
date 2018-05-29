@@ -5,17 +5,24 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { MatGridListModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule, // new modules added here
     MatToolbarModule,
     MatCardModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    MatGridListModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
