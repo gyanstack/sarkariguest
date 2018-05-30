@@ -2,67 +2,114 @@
   <mat-card-header>
     <mat-card-title>
       <a>
-        <small style="color: #1bb0ce">a complete guide to Government accomodations</small>
+        <small class="txt-primary">a complete guide to Government accomodations</small>
       </a>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content class="dashboard-card-content">
-    <form>
-
-    </form>
+    <div class="jumbotron">
+      <form>
+        <mat-form-field>
+          <input matInput placeholder="Search your location">
+        </mat-form-field>
+        <a mat-button>
+          <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+        </a>
+      </form>
+    </div>
   </mat-card-content>
 </mat-card>
-<div class="container">
-  <div class="jumbotron">
-        <form class="hero__form" action="http://sarkariguesthouse.com">
-          <div class="form-group">
-              <div class="justify-content-center">
-                  <input class="form-control form-control-lg col-sm-12 col-md-10 form-control--rounded" 
-                  name="s" type="search" placeholder="search your location..." style="display:inline">
-                  <button type="submit" class="btn btn-primary ml-lg-3 ml-sm-0 mt-4 mt-lg-0">search</button>
-              </div>
-          </div>
-      </form>
+
+<div class="row mt-3">
+  <div class="col-md-6 col-lg-4">
+    <mat-card>
+      <mat-card-title>
+        <a>
+          <h5 class="txt-primary">Hot deals</h5>
+        </a>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <small>November 11, 2014</small>
+      </mat-card-subtitle>
+      <mat-card-content>
+        Purus ac congue arcu cursus ut vitae pulvinar massaidp. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+        eiusmod tempor incididunt
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button href="https://angular.io/docs/ts/latest/" target="_blank">
+          <!-- <i class="fa fa-book fa-lg"></i> Docs -->
+          <small class="txt-primary"> READ MORE </small>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="col-md-6 col-lg-4  mt-2 mt-lg-0">
+    <mat-card>
+      <mat-card-title>
+        <a>
+          <h5 class="txt-primary">Amazing Places</h5>
+        </a>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <small>November 11, 2014</small>
+      </mat-card-subtitle>
+      <mat-card-content>
+        Purus ac congue arcu cursus ut vitae pulvinar massaidp. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse […
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button href="https://angular.io/docs/ts/latest/" target="_blank">
+          <!-- <i class="fa fa-book fa-lg"></i> Docs -->
+          <small class="txt-primary"> READ MORE </small>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="col-md-6 col-lg-4 mt-2 mt-lg-0">
+    <mat-card>
+      <mat-card-title>
+        <a>
+          <h5 class="txt-primary">Travel Insurance</h5>
+        </a>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <small>November 15, 2014</small>
+      </mat-card-subtitle>
+      <mat-card-content>
+        Purus ac congue arcu cursus ut vitae pulvinar massaidp. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse […
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button href="https://angular.io/docs/ts/latest/" target="_blank">
+          <small class="txt-primary"> READ MORE </small>
+        </a>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>
-<!-- <div class="container-fluid">
-  <nav class="navbar fixed-top navbar-light topNav navbar-expand-lg">
-    <a class="navbar-brand" href="#">
-      <img src="../assets/logo.png" class="img-fluid">
-    </a>
-  </nav>
-</div> -->
-<!-- <div class="container-fluid">
-  <div class="row grid-container">
-    <div class="row justify-content-center">
-      <mat-card class="dashboard-card">
-        <mat-card-content class="dashboard-card-content">
-          test content
+
+<div class="row mt-3">
+    <div class="col-md-6 col-lg-4">
+      <mat-card>
+        <mat-card-title>
+          <a>
+            <h5 class="txt-primary">Plan your Trip</h5>
+          </a>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <small>November 11, 2014</small>
+        </mat-card-subtitle>
+        <mat-card-content>
+          Purus ac congue arcu cursus ut vitae pulvinar massaidp. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt
         </mat-card-content>
+        <mat-card-actions>
+          <a mat-button href="https://angular.io/docs/ts/latest/" target="_blank">
+            <small class="txt-primary"> READ MORE </small>
+          </a>
+        </mat-card-actions>
       </mat-card>
     </div>
   </div>
-</div> -->
-<!-- <div class="grid-container">
-  <mat-grid-list cols="3" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <img class="d-block w-100 img-fluid" src="../assets/bgImg.png" alt="First slide">
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div> -->

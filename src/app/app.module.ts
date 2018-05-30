@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { MatGridListModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { CustomMaterialModuleModule } from './shared/modules/custom-material-module.module';
 
 @NgModule({
   declarations: [
@@ -19,10 +19,7 @@ import { MatGridListModule, MatMenuModule, MatIconModule, MatButtonModule } from
     MatToolbarModule,
     MatCardModule,
     NgbModule.forRoot(),
-    MatGridListModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule
+    CustomMaterialModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
