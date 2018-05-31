@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/ResponsiveLayout",
+    "public": "dist/sarkariguesthouse",
     "ignore": [
       "firebase.json",
       "**/.*",

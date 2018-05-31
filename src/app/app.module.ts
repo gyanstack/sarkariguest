@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CustomMaterialModuleModule } from './shared/modules/custom-material-module.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -14,12 +16,13 @@ import { CustomMaterialModuleModule } from './shared/modules/custom-material-mod
     HomeComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule, // new modules added here
     MatToolbarModule,
     MatCardModule,
     NgbModule.forRoot(),
-    CustomMaterialModuleModule
+    CustomMaterialModuleModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
