@@ -13,7 +13,7 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav ml-auto mt-4 mt-lg-0">
       <li class="nav-item">
-        <a mat-button href="#">
+        <a mat-button routerLink="home">
           <small style="color: #1bb0ce">Home </small>
         </a>
       </li>
@@ -27,7 +27,7 @@
 </nav>
 
 <div class="container-fluid">
-  <home></home>
+  <router-outlet></router-outlet>
 </div>
 
 <div class="footer container-fluid mt-4">
