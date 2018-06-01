@@ -40,7 +40,6 @@
     "popper.js": "^1.14.3",
     "rxjs": "^6.0.0",
     "web-animations-js": "^2.3.1",
-    "webpack-cli": "^2.1.4",
     "zone.js": "^0.8.26",
     "@angular/service-worker": "^6.0.3"
   },
@@ -66,6 +65,6 @@
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
     "typescript": "~2.7.2",
-    "webpack": "^4.10.2"
+    "webpack-cli": "^2.1.4"
   }
 }

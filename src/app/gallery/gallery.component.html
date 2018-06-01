@@ -1,0 +1,17 @@
+<div class="row mt-3">
+  <div class="col-md-6 col-lg-4" *ngFor="let item of galleryList">
+    <mat-card>
+      <mat-card-content>
+        <img mat-card-image [src]="[item.imgSrc]">
+      </mat-card-content>
+      <mat-card-subtitle>
+        {{item.subTitle}}
+      </mat-card-subtitle>
+      <mat-card-actions>
+        <a mat-button [routerLink]="['gallery/item']">
+          <small class="txt-primary"> VIEW DETAILS </small>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
