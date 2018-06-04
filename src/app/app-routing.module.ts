@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ItemDetailComponent } from './gallery/item-detail/item-detail.component';
+import { FlightDealComponent } from './flight-deal/flight-deal.component';
 // import {}
 
 const routes: Routes = [
@@ -21,7 +22,7 @@ const routes: Routes = [
     },
     {
         path: 'flight-deal',
-        loadChildren: './flight-deal/flight-deal.module#FlightDealModule'
+        component: FlightDealComponent
     }
     // {
     //     path: 'home',
