@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -14,6 +18,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { ItemDetailComponent } from './gallery/item-detail/item-detail.component';
 import { DashboardService } from './services/dashboard.service';
 import { FlightDealComponent } from './flight-deal/flight-deal.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,8 @@ import { FlightDealComponent } from './flight-deal/flight-deal.component';
     FooterComponent,
     GalleryComponent,
     ItemDetailComponent,
-    FlightDealComponent
+    FlightDealComponent,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -32,9 +38,16 @@ import { FlightDealComponent } from './flight-deal/flight-deal.component';
     // NgbModule.forRoot(),
     CustomMaterialModuleModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    AngularFireModule.initializeApp(environment.firebase),
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [DashboardService],
+  providers: [
+    DashboardService,
+    AngularFireDatabase,
+    AngularFirestore
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

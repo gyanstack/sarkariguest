@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 import { ItemDetailComponent } from './gallery/item-detail/item-detail.component';
 import { FlightDealComponent } from './flight-deal/flight-deal.component';
 // import {}
@@ -23,6 +24,10 @@ const routes: Routes = [
     {
         path: 'flight-deal',
         component: FlightDealComponent
+    },
+    {
+        path:'search',
+        component:SearchResultComponent
     }
     // {
     //     path: 'home',
