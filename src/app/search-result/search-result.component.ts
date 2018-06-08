@@ -29,6 +29,7 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
 export class SearchResultComponent implements OnInit {
   searchList = Array<any>();
   location: string;
+  collapsed: boolean;
   constructor(
     public db: AngularFireDatabase,
     private _router: Router,
@@ -37,6 +38,7 @@ export class SearchResultComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.collapsed = true;
     this._route.params.subscribe((params) => {
       this.location = params['term'];
       this.doSearch(this.location);
