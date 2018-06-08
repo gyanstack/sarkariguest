@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'home',
@@ -11,20 +12,24 @@ export class HomeComponent {
   searchForm: FormGroup;
   state = 'inactive';
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private route: ActivatedRoute) {
     this.createForm();
   }
-
-  cards = [
-    { title: 'Card 1', cols: 1, rows: 1 },
-    { title: 'Card 2', cols: 1, rows: 1 },
-    { title: 'Card 3', cols: 1, rows: 1 },
-    { title: 'Card 4', cols: 1, rows: 1 }
-  ];
 
   createForm(): any {
     this.searchForm = new FormGroup({
       search: new FormControl()
     });
   }
+
+  doSearch() {
+    if (this.search.value) {
+      this._router.navigate(['search', this.search.value]);
+    }
+  }
+
+  get search() { return this.searchForm.get('search'); }
 }

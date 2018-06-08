@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search-result',
@@ -10,11 +11,22 @@ import { Observable } from 'rxjs';
 export class SearchResultComponent implements OnInit {
   searchList = Array<any>();
   location: string;
-  constructor(public db: AngularFireDatabase) { }
+  constructor(
+    public db: AngularFireDatabase,
+    private _router: Router,
+    private _route: ActivatedRoute) {
+
+  }
 
   ngOnInit() {
-    this.location = "manali";
-    this.db.list('/locations', ref => ref.equalTo(this.location, 'location')).valueChanges().subscribe((data) => {
+    this._route.params.subscribe((params) => {
+      this.location = params['term'];
+      this.doSearch(this.location);
+    });
+  }
+
+  doSearch(searchTerm: string) {
+    this.db.list(`/locations/${this.location}/bsnl`).valueChanges().subscribe((data) => {
       this.searchList = data;
     });
   }

@@ -26,8 +26,8 @@ const routes: Routes = [
         component: FlightDealComponent
     },
     {
-        path:'search',
-        component:SearchResultComponent
+        path: 'search/:term',
+        component: SearchResultComponent
     }
     // {
     //     path: 'home',

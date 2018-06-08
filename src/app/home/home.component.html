@@ -9,12 +9,12 @@
   <mat-card-content class="dashboard-card-content">
     <h1>Looking for Government Guest House !</h1>
     <span>Find complete detail of Sarkari Guest Houses</span>
-    <form>
+    <form [formGroup]="searchForm">
       <mat-form-field style="display: block;">
-        <input matInput placeholder="Search your location">
+        <input matInput placeholder="Search your location" formControlName="search">
       </mat-form-field>
       <a mat-button>
-        <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+        <i class="fa fa-search fa-2x" aria-hidden="true" (click)="doSearch()"></i>
       </a>
     </form>
   </mat-card-content>

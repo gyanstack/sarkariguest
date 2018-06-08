@@ -38,7 +38,7 @@ import { SearchResultComponent } from './search-result/search-result.component';
     // NgbModule.forRoot(),
     CustomMaterialModuleModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase),
     FormsModule,
     ReactiveFormsModule

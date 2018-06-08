@@ -1,25 +1,52 @@
-<mat-card *ngIf="searchList">
+<div *ngIf="searchList" class="col-lg-12">
   <div class="row mt-3">
-    <h3 class="col-lg-12">
+    <mat-toolbar class="col-lg-12">
       Guest Houses in {{location}}
-    </h3>
-    <div class="col-md-6 col-lg-4" *ngFor="let item of searchList">
-      <mat-card>
-        <mat-card-content>
-          <img mat-card-image [src]="[item.imgSrc]">
-        </mat-card-content>
-        <mat-card-title>
-          {{ item.department }} Guest house
+    </mat-toolbar>
+    <mat-card class="col-lg-3 mt-3">
+      <mat-card-header>
+        <mat-card-title style="font-size: 20px;">
+          <a (click)="collapsed=!collapsed">Modify your search</a>
         </mat-card-title>
-        <mat-card-subtitle>
-          <b>Address:</b> {{ item.address }}
-        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content *ngIf="!collapsed">
+        <p>This is some example text.</p>
+        <p>This text will disappear when you use the action button in the actions bar below.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="collapsed=true">Collapse text</button>
+        <button mat-button (click)="collapsed=false">Uncollapse text</button>
+      </mat-card-actions>
+    </mat-card>
+    <div class="col-lg-9 mt-3 mt-lg-0">
+      <mat-card class="mt-3" *ngFor="let item of searchList">
+        <mat-card-content>
+          <div class="row">
+            <div class="col-lg-4">
+              <img mat-card-image [src]="[item.imgSrc]">
+            </div>
+            <div class="col-lg-8">
+              <h4>
+                {{ item.department }} Guest house
+              </h4>
+              <p>
+                <b>Address:</b> {{ item.address }}
+              </p>
+              <p>
+                <b>Description:</b> {{ item.description }}
+              </p>
+              <p>
+                <a mat-button [routerLink]="['gallery/item']">
+                  <small class="txt-primary"> VIEW DETAILS </small>
+                </a>
+              </p>
+            </div>
+          </div>
+        </mat-card-content>
         <mat-card-actions>
-          <a mat-button [routerLink]="['gallery/item']">
-            <small class="txt-primary"> VIEW DETAILS </small>
-          </a>
+
         </mat-card-actions>
       </mat-card>
     </div>
   </div>
-</mat-card>
+</div>
