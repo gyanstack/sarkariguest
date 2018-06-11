@@ -1,9 +1,18 @@
-<app-header></app-header>
+<div class="container-fluid">
+  <app-header></app-header>
 
-<!-- <div class="container" [@routeAnimation]="prepRouteState(routerOutlet)"> -->
-<mat-card class="container">
-  <!-- <router-outlet #routerOutlet="outlet"></router-outlet> -->
-  <router-outlet></router-outlet>
-</mat-card>
+  <!-- <div class="container" [@routeAnimation]="prepRouteState(routerOutlet)"> -->
+  <div class="row">
+    <!-- <router-outlet #routerOutlet="outlet"></router-outlet> -->
+    <div class="col-lg-9 ml-auto">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="col-lg-2">
+        <mat-toolbar class="col-lg-12 bgMain">
+            Advertisment...
+          </mat-toolbar>
+    </div>
+  </div>
 
-<app-footer></app-footer>
+  <app-footer></app-footer>
+</div>

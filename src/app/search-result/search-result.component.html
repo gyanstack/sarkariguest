@@ -1,5 +1,5 @@
 <div *ngIf="searchList" class="col-lg-12">
-  <div class="row mt-3">
+  <div class="row">
     <mat-toolbar class="col-lg-12 bgMain">
       Guest Houses in {{location}}
     </mat-toolbar>
@@ -10,7 +10,7 @@
             <a (click)="collapsed=!collapsed" style="cursor: pointer;">Modify your search</a>
           </mat-card-title>
         </mat-card-header>
-        <mat-card-content *ngIf="!collapsed">
+        <div *ngIf="!collapsed">
           <div class="card">
             <div class="card-header">
               <b>select Departments </b>
@@ -22,9 +22,11 @@
                 <input type="checkbox"> forest</li>
               <li class="list-group-item">
                 <input type="checkbox"> pwd</li>
+              <li class="list-group-item">
+                <input type="checkbox"> ONGC</li>
             </ul>
           </div>
-        </mat-card-content>
+        </div>
         <mat-card-actions>
           <a mat-button (click)="collapsed=true" *ngIf="!collapsed">
             <i class="fa fa-close fa-1x" aria-hidden="true"></i>
@@ -38,21 +40,27 @@
     <div class="col-lg-9 mt-3 mt-lg-0" [@listAnimation]="searchList.length">
       <div class="row">
         <div class="mt-3 col-lg-6" *ngFor="let item of searchList">
-          <mat-card>
-            <mat-card-content>
-              <img mat-card-image [src]="[item.imgSrc]" style="max-height: 220px">
-            </mat-card-content>
-            <mat-card-title>
-              {{ item.department }} Guest house
-            </mat-card-title>
-            <mat-card-subtitle>
-              <b> {{ item.address }} </b>
-            </mat-card-subtitle>
-            <mat-card-actions>
-                <a mat-button [routerLink]="['gallery/item']">
+          <mat-card style="height:180px">
+            <div class="row">
+              <div class="col-4">
+                <img [src]="[item.imgSrc]" class="img-fluid">
+              </div>
+              <div class="col-8">
+                <div class="card-block">
+                  <h5 class="card-title">{{ item.department }} Guest house</h5>
+                  <p>
+                    {{ item.address }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <a mat-button [routerLink]="['gallery/item']" class="pull-right">
                   <small class="txt-primary"> VIEW DETAILS </small>
                 </a>
-            </mat-card-actions>
+              </div>
+            </div>
           </mat-card>
         </div>
       </div>
