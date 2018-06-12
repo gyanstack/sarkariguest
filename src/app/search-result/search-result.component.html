@@ -7,7 +7,7 @@
       <mat-card>
         <mat-card-header>
           <mat-card-title style="font-size: 20px;">
-            <a (click)="collapsed=!collapsed" style="cursor: pointer;">Modify your search</a>
+            <a>Modify your search</a>
           </mat-card-title>
         </mat-card-header>
         <div *ngIf="!collapsed">
@@ -16,19 +16,14 @@
               <b>select Departments </b>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <input type="checkbox"> bsnl</li>
-              <li class="list-group-item">
-                <input type="checkbox"> forest</li>
-              <li class="list-group-item">
-                <input type="checkbox"> pwd</li>
-              <li class="list-group-item">
-                <input type="checkbox"> ONGC</li>
+              <li class="list-group-item" *ngFor="let depart of departmentList | async">
+                <input type="checkbox" value="{{depart}}" (change)="updateSearch($event)"> {{depart}}
+              </li>
             </ul>
           </div>
         </div>
         <mat-card-actions>
-          <a mat-button (click)="collapsed=true" *ngIf="!collapsed">
+          <a mat-button (click)="cancelSearch()" *ngIf="!collapsed">
             <i class="fa fa-close fa-1x" aria-hidden="true"></i>
           </a>
           <a mat-button (click)="collapsed=false" *ngIf="collapsed">
