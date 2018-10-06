@@ -1,28 +1,24 @@
 <header class="sticky-top">
-  <mat-toolbar style="background-color: white">
+  <mat-toolbar style="background-color: white;">
     <a class="navbar-brand" href="#">
       <img src="../assets/logo.png" class="img-fluid" style="width:300px;">
     </a>
   </mat-toolbar>
-  <mat-divider role="separator" style="padding:1px;margin:1px" aria-orientation="horizontal"></mat-divider>
+  <mat-divider role="separator" style="padding:1px;margin:1px" class="header" aria-orientation="horizontal"></mat-divider>
 </header>
-<nav class="navbar sticky-top navbar-light bg-white navbar-expand-lg">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav ml-auto mt-4 mt-lg-0">
+<nav class="navbar sticky-top navbar-light navbar-expand-lg bg-white">
+  <div class="navbar-collapse" id="navbarText">
+    <ul class="navbar-nav ml-auto  mt-0 mt-lg-0" style="flex-direction: row; float: right">
       <li class="nav-item">
         <a mat-button [routerLink]="['']">
-          <i style="color: #1bb0ce"  class="fa fa-home fa-1x" aria-hidden="true"> Home </i>
+          <i style="color: #08697c"  class="fa fa-home fa-1x" aria-hidden="true"> Home </i>
         </a>
       </li>
-      <li class="nav-item ml-lg-2">
+      <!-- <li class="nav-item ml-lg-2">
         <a mat-button [routerLink]="['flight-deal']">
-          <i style="color: #1bb0ce" class="fa fa-plane fa-1x" aria-hidden="true"> flight Deal</i>
+          <i style="color: #08697c" class="fa fa-plane fa-1x" aria-hidden="true"> flight Deal</i>
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
 </nav>

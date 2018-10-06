@@ -1,82 +1,84 @@
-<mat-card class="bgMain">
-  <mat-card-content class="dashboard-card-content">
-    <h1>Looking for Government Guest House !</h1>
-    <span>Find complete detail of Sarkari Guest Houses</span>
-    <form [formGroup]="searchForm"(ngSubmit)="doSearch()">
-      <mat-form-field style="display: block;">
-        <input matInput placeholder="Search your location" formControlName="search">
-      </mat-form-field>
-      <button type="submit" mat-button>
-        <i class="fa fa-search fa-2x" aria-hidden="true"></i>
-      </button>
-    </form>
-  </mat-card-content>
-</mat-card>
-
+<div class="row">
+  <mat-card class="bgMain col-12">
+    <mat-card-content class="dashboard-card-content">
+      <h1>Looking for Government Guest House !</h1>
+      <span>Find complete detail of Sarkari accommodations</span>
+      <div class="col-12 col-lg-8 col-md-9 mx-auto">
+        <form [formGroup]="searchForm" (ngSubmit)="doSearch()">
+          <mat-form-field style="width:100%">
+            <input type="text" placeholder="Search your location e.g. Manali" aria-label="Number" matInput [formControl]="city" [matAutocomplete]="auto"
+              style="width:100%">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <p>
+            <i>OR</i>
+          </p>
+          <p>
+            <i>search by state & district name</i>
+          </p>
+          <mat-form-field class="col-6 mx-auto" style="width:100%">
+            <mat-select placeholder="State" formControlName="state">
+              <mat-option *ngFor="let state of states" [value]="state">
+                {{state}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-6 mx-auto" style="width:100%">
+            <mat-select placeholder="District" formControlName="district">
+              <mat-option *ngFor="let district of disrticts" [value]="district">
+                {{district}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>
+            <button type="submit" mat-fab style="background-color: darkturquoise">
+              <i class="fa fa-search fa-1x" aria-hidden="true"></i>
+            </button>
+          </p>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
 <div class="row mt-3">
-  <div class="col-12">
+  <mat-card class="col-12">
     <mat-card-title>
       <a>
-        <h5 class="txt-primary">Featured Trip</h5>
+        <h5 class="txt-primary">About Us</h5>
       </a>
     </mat-card-title>
     <mat-card-subtitle>
-      <small>This is the best place to show your other travel packages. Purus ac congue arcu cursus ut vitae pulvinar massaidp.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</small>
+      <p style="text-align: justify">
+        SarkariGuestHouse.com is the first and only website of its kind. With the help of this blog we tried to make available the
+        information of Government accommodations with complete procedure of booking to common people so that they may also
+        take benefits of facilities which are currently available only for Government people. It is a myth that Government
+        accommodations can be booked by Government employees only and with this blog we tried to make general public aware
+        about their rights of booking of government guest houses.
+      </p>
+      <p style="text-align: justify">
+        There are only very few Government guest houses which can be booked by only Government employees otherwise most of the accommodations
+        can be booked by all the Indian Citizens. The charges for Government employees and general public may differ, which
+        also we tried to tell this website.
+        <a mat-button href="https://angular.io/docs/ts/latest/" target="_blank">
+          <span class="txt-primary"> view more... </span>
+        </a>
+      </p>
     </mat-card-subtitle>
     <mat-card-content>
     </mat-card-content>
-    <mat-card-actions>
-      <a mat-button href="https://angular.io/docs/ts/latest/" target="_blank">
-        <small class="txt-primary"> VIEW DETAILS </small>
-      </a>
-    </mat-card-actions>
-  </div>
+  </mat-card>
 </div>
-
 <div class="row mt-3">
   <div class="col-12">
-    <mat-card-title>
-      <a>
-        <h5 class="txt-primary">Plan your trip</h5>
-      </a>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <small>This is the best place to plan your other travel packages.</small>
-    </mat-card-subtitle>
-    <mat-card-content>
-    </mat-card-content>
-    <mat-card-actions>
-      <a mat-button href="https://angular.io/docs/ts/latest/" target="_blank">
-        <small class="txt-primary"> VIEW DETAILS </small>
-      </a>
-    </mat-card-actions>
+    <h5 class="txt-primary">Popular Destinations</h5>
+    <app-gallery></app-gallery>
   </div>
 </div>
-
-<app-gallery></app-gallery>
-
-<div class="row mt-3">
-  <div class="col-12">
-    <mat-card-title>
-      <a>
-        <h5 class="txt-primary">Latest Articles</h5>
-      </a>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <small>Purus ac congue arcu cursus ut vitae pulvinar massaidp. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-        do eiusmod </small>
-    </mat-card-subtitle>
-    <mat-card-content>
-    </mat-card-content>
-    <mat-card-actions>
-      <a mat-button href="https://angular.io/docs/ts/latest/" target="_blank">
-        <small class="txt-primary"> VIEW DETAILS </small>
-      </a>
-    </mat-card-actions>
-  </div>
-</div>
-
+<!-- 
 <div class="row mt-3">
   <div class="col-md-6 col-lg-4 mt-2 mt-lg-0">
     <mat-card>
@@ -130,4 +132,4 @@
       </mat-card-actions>
     </mat-card>
   </div>
-</div>
+</div> -->

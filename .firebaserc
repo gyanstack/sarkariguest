@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "sghweb-c53b2"
+  },
+  "targets": {
+    "sghweb-c53b2": {
+      "hosting": {
+        "sarkariguesthouse": [
+          "sarkariguesthouse",
+          "sghweb-c53b2"
+        ]
+      }
+    }
   }
 }

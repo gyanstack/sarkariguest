@@ -16,12 +16,13 @@
 
   .bgMain{
     //background: url(./assets/images/banner-img.jpg) center center no-repeat !important;
-    background-image: radial-gradient(circle at 50% -9%,#35ae50,#2f9a7b)!important;
+    // background-image: radial-gradient(circle at 50% -9%,#35ae50,#2f9a7b)!important;
+    background-image: radial-gradient(circle at 50% -9%,#abb9f5,#17485f)!important;
     color: #fff
   }
 
-  .mat-toolbar.mat-primary {
-    background: #03a9f4;
+  .header {
+    background-image: radial-gradient(circle at 50% -9%,#cbd2ee,#a3d8f0)!important;
     color: #fff;
 }
 
@@ -32,6 +33,18 @@
   width: 100%;
 }
 .navbar-brand {float:none;}
+
+.mat-btn-width{
+  width: 100% !important;
+}
+
+#navbarText ul li{
+  text-align: center;
+}
+
+.list-group-item{
+  padding: 10px
+}
 
 $grid-breakpoints: (
   xs: 0,
@@ -46,7 +59,7 @@ $grid-breakpoints: (
   padding: 0 15px;
   text-align: center;
   z-index: 1;
-  background-image: radial-gradient(circle at 50% -9%,#35ae50,#2f9a7b)!important;
+  background-image: radial-gradient(circle at 50% -9%,#cbd2ee,#a3d8f0)!important;
 
   .row {
     padding: 10px 0;
@@ -56,6 +69,7 @@ $grid-breakpoints: (
         transition: padding 0.5s;
         display: inline-block;
         padding: 20px 5px;
+        color:white;
 
         &:hover {
           text-decoration: none;

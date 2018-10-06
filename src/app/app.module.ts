@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +20,7 @@ import { ItemDetailComponent } from './gallery/item-detail/item-detail.component
 import { DashboardService } from './services/dashboard.service';
 import { FlightDealComponent } from './flight-deal/flight-deal.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { SearchDetailComponent } from './search-detail/search-detail.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { SearchResultComponent } from './search-result/search-result.component';
     GalleryComponent,
     ItemDetailComponent,
     FlightDealComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    SearchDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -40,6 +43,7 @@ import { SearchResultComponent } from './search-result/search-result.component';
     AppRoutingModule,
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     FormsModule,
     ReactiveFormsModule
   ],

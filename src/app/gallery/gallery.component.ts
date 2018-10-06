@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Gallery } from '../models/gallery';
 import { DashboardService } from '../services/dashboard.service';
+import { Router } from '../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-gallery',
@@ -11,7 +12,9 @@ import { DashboardService } from '../services/dashboard.service';
 export class GalleryComponent implements OnInit {
   galleryList: Array<Gallery>;
 
-  constructor(private _dashboardService: DashboardService) {
+  constructor(
+    private _dashboardService: DashboardService,
+    private _router: Router) {
 
   }
 
@@ -21,6 +24,10 @@ export class GalleryComponent implements OnInit {
 
   loadGallery(): void {
     this.galleryList = this._dashboardService.galleryList();
+  }
+
+  navigateToCity(city: string) {
+    this._router.navigate(['search', city]);
   }
 
 }

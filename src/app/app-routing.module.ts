@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ItemDetailComponent } from './gallery/item-detail/item-detail.component';
 import { FlightDealComponent } from './flight-deal/flight-deal.component';
+import { SearchDetailComponent } from './search-detail/search-detail.component';
 // import {}
 
 const routes: Routes = [
@@ -26,8 +27,16 @@ const routes: Routes = [
         component: FlightDealComponent
     },
     {
-        path: 'search/:term',
+        path: 'search/:city',
         component: SearchResultComponent
+    },
+    {
+        path: 'search/:state/:district',
+        component: SearchResultComponent
+    },
+    {
+        path: 'searchDetail/:city/:department/:srNo',
+        component: SearchDetailComponent
     }
     // {
     //     path: 'home',
