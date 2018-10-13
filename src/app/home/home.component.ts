@@ -2,9 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, debounceTime } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Search } from '../models/search';
+import { cityCollection } from '../shared/utils/codeUtil';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'home',
@@ -20,8 +22,7 @@ export class HomeComponent implements OnInit {
   disrticts: string[] = [];
   states: string[] = [];
   locations: Array<Search> = [];
-  cityCollection:string = 'myCities';
-
+  error: string;
   constructor(
     private _formBuilder: FormBuilder,
     private _router: Router,
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit {
     const self = this;
 
     this.filteredOptions = this.city.valueChanges.pipe(
+      debounceTime(500),
       startWith(''),
       map(value => this._filter(value))
     );
@@ -43,22 +45,18 @@ export class HomeComponent implements OnInit {
         this.city.setValue('');
         this.district.setValue('');
         let districtList = this.locations.filter(x => x.state == value).map(x => x.district);
-        this.disrticts = districtList.filter(function (v, i) {
-          return districtList.indexOf(v) == i
-        });
+        this.disrticts = _.orderBy(_.uniqBy(districtList));
       } else {
         this.disrticts = [];
       }
     })
 
 
-    this._afs.collection(this.cityCollection).valueChanges().subscribe(data => {
+    this._afs.collection(cityCollection).valueChanges().subscribe(data => {
       self.locations = data as Search[];
-      self.cities = self.locations.map(x => x.city);
-      let stateList = self.locations.map(x => x.state);
-      self.states = stateList.filter(function (v, i) {
-        return stateList.indexOf(v) == i
-      });
+      self.cities = _.orderBy(self.locations.map(x => x.city));
+      let stateList = _.uniqBy(self.locations.map(x => x.state));
+      self.states = _.orderBy(stateList);
     });
   }
 
@@ -69,7 +67,12 @@ export class HomeComponent implements OnInit {
       this.district.clearValidators();
       this.district.updateValueAndValidity();
       const filterValue = value.toLowerCase();
-      return this.cities.filter(option => option != null && option.toLowerCase().indexOf(filterValue) === 0);
+
+      let result = this.cities.filter(option => option != null && option.toLowerCase().indexOf(filterValue) === 0);
+      if (result.length == 0) {
+        this.error = "No result found."
+      }
+      return result;
     } else {
       return [];
     }
@@ -84,8 +87,8 @@ export class HomeComponent implements OnInit {
   }
 
   doSearch() {
-    if (this.city.value) {
-      this._router.navigate(['search', this.city.value ]);
+    if (this.city.value && this.cities.find(x => x == this.city.value)) {
+      this._router.navigate(['search', this.city.value]);
     }
     if (!this.city.value && this.state.value) {
       if (this.district.value) {
@@ -100,4 +103,8 @@ export class HomeComponent implements OnInit {
   get city() { return this.searchForm.get('city'); }
   get state() { return this.searchForm.get('state'); }
   get district() { return this.searchForm.get('district'); }
+
+  // this.disrticts = districtList.filter(function (v, i) {
+  //   return districtList.indexOf(v) == i
+  // });
 }

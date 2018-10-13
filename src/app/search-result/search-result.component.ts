@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 // import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { departmentLogo } from '../shared/utils/codeUtil';
+import { guestHouseCollection, departmentCollection, cityCollection } from '../shared/utils/codeUtil';
+import * as _ from 'lodash';
+import { FormGroup, FormBuilder } from '../../../node_modules/@angular/forms';
+import { startWith, map, debounceTime } from '../../../node_modules/rxjs/operators';
+import { Search } from '../models/search';
 
 @Component({
   selector: 'app-search-result',
@@ -33,57 +37,77 @@ import { departmentLogo } from '../shared/utils/codeUtil';
 export class SearchResultComponent implements OnInit {
   searchList = Array<any>();
   departmentList: Array<any> = [];
+  cities: string[] = [];
   city: string;
   state: string;
   district: string;
   collapsed: boolean;
   location: string;
   searchTerm = [];
+  filteredOptions: Observable<string[]>;
+  searchForm: FormGroup;
   private searchSubject = new Subject<string[]>();
   searchTerm$ = this.searchSubject.asObservable();
-  guestHouseCollection: string = 'myGuestHouses';
+  public error: string;
   constructor(
+    private _formBuilder: FormBuilder,
     public db: AngularFireDatabase,
     private _afs: AngularFirestore,
     private _route: ActivatedRoute,
     private _router: Router) {
+    this.createForm();
     this.searchTerm$.subscribe(x => {
       this.notifySearchChanges();
     });
   }
 
   ngOnInit() {
-    this.collapsed = true;
+    this.collapsed = false;
     this._route.params.subscribe((params) => {
       this.city = params['city'];
       this.state = params['state'];
       this.district = params['district'];
+      this.fCity.setValue(this.city);
       this.doSearch();
       this.getDepartments();
     });
+
+    this.filteredOptions = this.fCity.valueChanges.pipe(
+      debounceTime(500),
+      startWith(''),
+      map(value => this._filter(value))
+    );
   }
 
   doSearch() {
-    const self = this;
+    let prevCity = this.city;
+    this.city = this.fCity.value;
     if (this.city) {
       this.location = this.city;
-      this._afs.collection(this.guestHouseCollection, ref => ref.where('city', '==', this.city))
+      this._afs.collection(guestHouseCollection, ref => ref.where('city', '==', this.city))
         .valueChanges().subscribe(data => {
-          this.searchList = data;
+          if (data.length > 0)
+            this.searchList = data;
+          else {
+            this.city = prevCity;
+            this.location = prevCity;
+            this.fCity.setValue(prevCity);
+          }
         });
     }
     else if (this.state && this.district) {
       this.location = this.district;
-      this._afs.collection(this.guestHouseCollection, ref => ref.where('district', '==', this.district))
+      this._afs.collection(guestHouseCollection, ref => ref.where('district', '==', this.district))
         .valueChanges().subscribe(data => {
-          this.searchList = data;
+          if (data.length > 0)
+            this.searchList = data;
         });
     }
   }
 
   getDepartments() {
-    this._afs.collection('departments').valueChanges().subscribe(data => {
-      this.departmentList = data;
+    this._afs.collection(departmentCollection).valueChanges().subscribe(data => {
+      this.departmentList = _.orderBy(data, 'name');
     });
   }
 
@@ -91,7 +115,7 @@ export class SearchResultComponent implements OnInit {
     return this.departmentList.length ? this.departmentList.find(x => x.name == department).imgSrc : '';
   }
 
-  updateSearch(event, data) {
+  updateSearch(event) {
     const self = this;
     var selected = event.option.value;
     if (event.option.selected) {
@@ -121,14 +145,14 @@ export class SearchResultComponent implements OnInit {
     if (self.searchTerm.length) {
       self.searchTerm.forEach(element => {
         if (this.city) {
-          this._afs.collection(this.guestHouseCollection, ref => ref.where('city', '==', this.city).where('department', '==', element)).valueChanges().subscribe(data => {
+          this._afs.collection(guestHouseCollection, ref => ref.where('city', '==', this.city).where('department', '==', element)).valueChanges().subscribe(data => {
             data.forEach(function (gst) {
               self.searchList.push(gst);
             });
           });
         }
         else if (this.district) {
-          this._afs.collection(this.guestHouseCollection, ref => ref.where('district', '==', this.district).where('department', '==', element)).valueChanges().subscribe(data => {
+          this._afs.collection(guestHouseCollection, ref => ref.where('district', '==', this.district).where('department', '==', element)).valueChanges().subscribe(data => {
             data.forEach(function (gst) {
               self.searchList.push(gst);
             });
@@ -139,6 +163,33 @@ export class SearchResultComponent implements OnInit {
       this.doSearch();
     }
   }
+
+  createForm(): any {
+    this.searchForm = this._formBuilder.group({
+      fCity: ['']
+    });
+  }
+
+  private _filter(value: string): string[] {
+    if (value) {
+      const filterValue = value.toLowerCase();
+      if (this.cities.length == 0) {
+        this._afs.collection(cityCollection).valueChanges().subscribe(data => {
+          var locations = data as Search[];
+          this.cities = _.orderBy(locations.map(x => x.city));
+        });
+      }
+      let result = this.cities.filter(option => option != null && option.toLowerCase().indexOf(filterValue) === 0);
+      if (result.length == 0) {
+        this.error = "No result found."
+      }
+      return result;
+    } else {
+      return [];
+    }
+  }
+
+  get fCity() { return this.searchForm.get('fCity'); }
 
 
   // doSearch() {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
 import { AngularFirestore } from '../../../node_modules/angularfire2/firestore';
 import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
+import { guestHouseCollection, departmentCollection } from '../shared/utils/codeUtil';
 
 @Component({
   selector: 'app-search-detail',
@@ -12,10 +13,16 @@ export class SearchDetailComponent implements OnInit {
   city: string;
   department: string;
   srNo: number;
-  guestHouseCollection: string = 'myGuestHouses';
   searchDetail: any;
   commentForm: FormGroup;
-  logo:string;
+  logo: string;
+
+  searchList = Array<any>();
+  departmentList: Array<any> = [];
+  state: string;
+  district: string;
+  collapsed: boolean;
+  location: string;
 
   constructor(
     private _router: Router,
@@ -30,27 +37,37 @@ export class SearchDetailComponent implements OnInit {
     this._route.params.subscribe((params) => {
       this.city = params['city'];
       this.department = params['department'];
-      this.srNo = +params['srNo'];
+      this.srNo = params['srNo'];
+      this.getDepartments();
       this.getDetail();
+      this.loadOtherGuestHOuses();
     });
   }
 
   getDetail(): any {
-    this._afs.collection(this.guestHouseCollection, ref => ref
+    this._afs.collection(guestHouseCollection, ref => ref
       .where('city', '==', this.city)
       .where('department', '==', this.department)
       .where('srNo', '==', this.srNo)).valueChanges().subscribe(data => {
-        this.searchDetail = data[0];
-        this.getImagePath(this.searchDetail.department)
+        if (data.length) {
+          this.searchDetail = data[0];
+          this.getImagePath(this.searchDetail.department)
+        }
       });
   }
 
+  getDepartments() {
+    this._afs.collection(departmentCollection).valueChanges().subscribe(data => {
+      this.departmentList = data;
+    });
+  }
+
   getImagePath(department: string) {
-    this._afs.collection('departments', ref => ref.where('name', '==', department))
-      .valueChanges().subscribe(data => {
-        let obj = data[0] as any;
-        this.logo = obj.imgSrc;
-      });
+    this.logo = this.departmentList.length ? this.departmentList.find(x => x.name == department).imgSrc : '';
+  }
+
+  getOtherImagePath(department: string) {
+    return this.departmentList.length ? this.departmentList.find(x => x.name == department).imgSrc : '';
   }
 
   createForm(): any {
@@ -59,5 +76,27 @@ export class SearchDetailComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', Validators.required]
     });
+  }
+
+  loadOtherGuestHOuses() {
+    const self = this;
+    if (this.city) {
+      this.location = this.city;
+      this._afs.collection(guestHouseCollection, ref => ref.where('city', '==', this.city))
+        .valueChanges().subscribe(data => {
+          this.searchList = data;
+        });
+    }
+    else if (this.state && this.district) {
+      this.location = this.district;
+      this._afs.collection(guestHouseCollection, ref => ref.where('district', '==', this.district))
+        .valueChanges().subscribe(data => {
+          this.searchList = data;
+        });
+    }
+  }
+
+  viewDetail(item: any) {
+    this._router.navigate(['searchDetail', item.city, item.department, item.srNo]);
   }
 }

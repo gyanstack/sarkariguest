@@ -1,13 +1,23 @@
 <div *ngIf="searchDetail" class="row">
-  <mat-toolbar class="col-lg-12 bgMain">
-    <div class="mx-auto">
-      {{searchDetail.city}}, {{searchDetail.state}}
-    </div>
-    <div class="mx-auto">
+  <mat-toolbar class="col-lg-12 bgMain d-none d-sm-none d-md-block">
+    <div class="mx-1">
       <span>
-        <img [src]="logo" height="65px">
+        <img [src]="logo" height="60px">
       </span>
-      <span> {{searchDetail.departmentDsc}}</span>
+      <span style="padding-left: 10px;"> {{searchDetail.departmentDsc}}</span>
+      <span class="pull-right">
+        {{searchDetail.city}}, {{searchDetail.state}}
+      </span>
+    </div>
+  </mat-toolbar>
+  <mat-toolbar class="col-lg-12 bgMain d-block d-sm-block d-md-none">
+    <div class="mx-1">
+      <span>
+        <img [src]="logo" height="60px">
+      </span>
+      <span class="pull-right">
+        {{searchDetail.city}}, {{searchDetail.state}}
+      </span>
     </div>
   </mat-toolbar>
   <div class="col-lg-12">
@@ -22,31 +32,31 @@
     </mat-card>
   </div>
   <div class="col-lg-8">
-    <mat-card class="mt-3 row">
-      <mat-card-header>
-        <mat-card-title style="font-size: 16px;">
-          Address :
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
+    <div class="card row mt-3">
+      <div class="card-header">
+        <h5>Address </h5>
+      </div>
+      <div class="card-body">
         {{searchDetail.address}}
         <br> PIN Code: {{searchDetail.pinCode}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="mt-3 row">
-      <mat-card-header>
-        <mat-card-title style="font-size: 20px;">
-          Guest House Detail :
-        </mat-card-title>
-      </mat-card-header>
-    </mat-card>
-    <mat-card class="mt-3 row">
-      <mat-card-header>
-        <mat-card-title style="font-size: 20px;">
-          Booking Procedure :
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
+      </div>
+    </div>
+
+    <div class="card row mt-3">
+      <div class="card-header">
+        <h5>Guest House Detail </h5>
+      </div>
+      <div class="card-body">
+        {{searchDetail.address}}
+        <br> PIN Code: {{searchDetail.pinCode}}
+      </div>
+    </div>
+
+    <div class="card row mt-3">
+      <div class="card-header">
+        <h5>Booking Procedure </h5>
+      </div>
+      <div class="card-body">
         <p>
           <b>Booking Authority :</b> {{searchDetail.bookingAuthority}}
         </p>
@@ -62,8 +72,8 @@
         <p>
           <b>Fax:</b> {{searchDetail.bookingFaxNo}}
         </p>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </div>
     <mat-card class="mt-3 row">
       <mat-card-header>
         <mat-card-title style="font-size: 20px;">
@@ -78,11 +88,43 @@
         </mat-card-title>
       </mat-card-header>
     </mat-card>
-    <app-gallery></app-gallery>
+    <div class="card row mt-3">
+      <div class="card-header">
+        <b>You may also like...</b>
+      </div>
+      <div class="row">
+        <div class="mt-3 col-lg-4" *ngFor="let item of searchList">
+          <mat-card (click)="viewDetail(item)">
+            <div class="row">
+              <div class="col-2" style="padding:0px 5px;">
+                <img src="{{getOtherImagePath(item.department)}}" class="img-fluid">
+              </div>
+              <div class="col-10">
+                <div class="card-block">
+                  <h6 class="card-title">
+                    <b>{{ item.departmentDsc }}</b>
+                  </h6>
+                  <hr style="margin-top:0px;">
+                  <p>
+                    <i class="fa fa-map-marker 1x"></i>
+                    <small style="padding-left: 5px">{{ item.location }}, {{ item.city }}, {{ item.pinCode }}.</small>
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <a mat-button (click)="viewDetail(item)" class="pull-right" style="line-height: 17px">
+                  <small class="txt-primary"> VIEW DETAILS </small>
+                </a>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="col-lg-4">
     <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
-      <mat-card class="mt-3">
+      <mat-card class="mt-3 row">
         <mat-card-header>
           <mat-card-title style="font-size: 20px;">
             Feedbak/suggestion :

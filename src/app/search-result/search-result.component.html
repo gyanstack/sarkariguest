@@ -1,43 +1,62 @@
 <div *ngIf="searchList" class="col-lg-12">
   <div class="row">
-    <mat-toolbar class="col-lg-12 bgMain">
+    <mat-toolbar class="col-lg-12 bgMain d-none d-sm-none d-md-block">
       <span class="mx-auto">
         Government Accommodations in {{location}}
       </span>
     </mat-toolbar>
+
+    <mat-toolbar class="col-lg-12 bgMain d-block d-sm-block d-md-none">
+      <span class="mx-auto">
+        Govt Accommodations in {{location}}
+      </span>
+    </mat-toolbar>
     <div class="col-lg-3 mt-3">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title style="font-size: 20px;">
-            <a>Modify your search</a>
-          </mat-card-title>
-        </mat-card-header>
+      <div class="card row">
+        <mat-toolbar>
+          <a style="cursor: pointer" (click)="collapsed=false">Modify your search</a>
+        </mat-toolbar>
         <div *ngIf="!collapsed">
-          <div class="card">
-            <div class="card-header">
-              <b>select Departments </b>
+          <div *ngIf="departmentList.length">
+            <div style="padding: 10px;">
+              <form [formGroup]="searchForm" (ngSubmit)="doSearch()">
+                <mat-form-field>
+                  <input type="text" placeholder="Search other location e.g. Manali" aria-label="Number" matInput [formControl]="fCity" [matAutocomplete]="auto"
+                    style="width:100%">
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <button type="submit" mat-fab style="background-color: darkturquoise;margin-left: 10px">
+                  <i class="fa fa-search fa-1x" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+            <div style="padding:10px;">
+              <b> Departments </b>
+              <mat-divider style="margin-top: 5px"></mat-divider>
             </div>
             <mat-selection-list #department (selectionChange)="updateSearch($event, department.selectedOptions)">
               <mat-list-option *ngFor="let depart of departmentList" [value]="depart.name">
-                {{depart.name}}
+                <small> {{depart.name}}</small>
+                <mat-divider [inset]="true"></mat-divider>
               </mat-list-option>
             </mat-selection-list>
           </div>
+          <div align="center" style="padding: 5px;">
+            <button mat-fab (click)="cancelSearch()" *ngIf="!collapsed" class="bgMain">
+              <i class="fa fa-close fa-1x" aria-hidden="true" style="padding: 0px"></i>
+            </button>
+          </div>
         </div>
-        <mat-card-actions>
-          <a mat-button (click)="cancelSearch()" *ngIf="!collapsed">
-            <i class="fa fa-close fa-1x" aria-hidden="true"></i>
-          </a>
-          <a mat-button (click)="collapsed=false" *ngIf="collapsed">
-            <i class="fa fa-search fa-1x" aria-hidden="true"></i>
-          </a>
-        </mat-card-actions>
-      </mat-card>
+      </div>
     </div>
     <div class="col-lg-9 mt-3 mt-lg-0" [@listAnimation]="searchList.length">
       <div class="row">
         <div class="mt-3 col-lg-6" *ngFor="let item of searchList">
-          <mat-card>
+          <mat-card class="row" (click)="viewDetail(item)">
             <div class="row">
               <div class="col-2" style="padding:0px 5px;">
                 <img src="{{getImagePath(item.department)}}" class="img-fluid">
@@ -54,8 +73,6 @@
                   </p>
                 </div>
               </div>
-            </div>
-            <div class="row">
               <div class="col-lg-12">
                 <a mat-button (click)="viewDetail(item)" class="pull-right" style="line-height: 17px">
                   <small class="txt-primary"> VIEW DETAILS </small>

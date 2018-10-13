@@ -1,0 +1,12 @@
+.mat-fab{
+    height: 35px !important;
+    width: 30px !important;
+}
+
+:host /deep/ .mat-fab .mat-button-wrapper{
+    padding: 0px !important;
+}
+
+:host /deep/ .mat-list-option{
+    height: 40px !important;
+}
